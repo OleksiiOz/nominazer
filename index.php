@@ -1,17 +1,6 @@
 <?php 
 	require $_SERVER['DOCUMENT_ROOT'].'/partials/header.php';
 
-	// if (isset($_SESSION['user_id'])) {
-	//     $sql = "SELECT * FROM users WHERE id=". $_SESSION['user_id'];
-	//     $result = mysqli_query($conn, $sql);
-	//     $user = $result->fetch_assoc();
-	//     $currentUser = $_SESSION['user_id'];
-	// } else if (isset($_COOKIE['user_id'])) {
-	//     $sql = "SELECT * FROM users WHERE id=". $_COOKIE['user_id'];
-	//     $result = mysqli_query($conn, $sql);
-	//     $user = $result->fetch_assoc();
-	//     $currentUser = $_COOKIE['user_id'];
- //    } 
     if(!isset($user)) {
 ?>
 
@@ -32,65 +21,80 @@
 <?php 
 	} else {
 ?>
-	<!-- OPTIONS -->
-	<div class="wrap-login100 options">
-		<h2 class="login100-form-title p-b-50 p-t-20">HI <?php echo $user['username']; ?>!   <a class="txt1 p-l-20" href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/logout.php"><i class="bi bi-door-open-fill"></i></a></h2>
-        <form action="#" method="get" class="login100-form validate-form">
-          <div class="wrap-input100 validate-input" data-validate="">
-            <input class="input100" type="number" name="letter-count" placeholder="Letter count" min="3" max="24" required>
-          </div>
-          <div class="wrap-input100 validate-input" data-validate="">
-            <input class="input100" list="count" name="word-count" placeholder="Word count" required>
-            <datalist id="count">
-			    <option value="1">
-			    <option value="2">
-			    <option value="3">
-			</datalist>
-          </div>          
-          <div class="wrap-input100 validate-input" data-validate="">
-            <input class="input100" list="languages" name="language" placeholder="Language" required>
-              <datalist id="languages">
-			    <option value="EN">
-			    <option value="UA">
-			  </datalist>
-          </div>
-          <div class="contact100-form-checkbox">
-            <input class="input-checkbox100" id="ckb1" type="checkbox" name="capital-letters">
-            <label class="label-checkbox100" for="ckb1">Capital letters</label>
-          </div>
-        </form>
-        <div class="container-login100-form-btn">
-		    <button id="generate" class="login100-form-btn" type="submit">GENERATE</button>
-		</div>
-		<div class="text-center p-t-50">
-			<a class="txt1" href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/list.php">List</a>			
-<!-- 			<a class="txt1" href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/clean_list.php">Clean list</a>
- -->		</div>
-	</div>
 
 	<!-- СГЕНРИРОВАННОЕ СЛОВО -->
 	<div class="wrap-login100 generate-word">
-		<div class="block like">
-			<i class="bi bi-emoji-smile"></i>
-		</div>
-		<div class="menu">
-			<a href="#">
-				<i class="bi bi-gear"></i>
-			</a>
-			<div class="result">
-				<h2>TEST</h2>
+		<form action="<?php $_SERVER['DOCUMENT_ROOT'] ?>/add_title.php" method="POST">
+			<button class="block like" name="1" type="submit">
+				<i class="bi bi-emoji-smile"></i>
+			</button>
+			<div class="menu">
+				<a id="option" href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/options.php">
+					<i class="bi bi-gear"></i>
+				</a>
+				<div class="result">
+					<h2 name="title">TEST</h2>
+					<input type="text" name="title" value="TEST">
+				</div>
+				<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/list.php">
+					<i class="bi bi-card-checklist"></i>
+				</a>
 			</div>
-			<a href="<?php $_SERVER['DOCUMENT_ROOT'] ?>/list.php">
-				<i class="bi bi-card-checklist"></i>
-			</a>
-		</div>
-		<div class="block bad">
-			<i class="bi bi-emoji-frown"></i>
-		</div>
+			<button class="block bad" name="0" type="submit">
+				<i class="bi bi-emoji-frown"></i>
+			</button>
+		</form>
 	</div>
 
-		<!-- LIST -->
-	
+	<?php 
+	  require $_SERVER['DOCUMENT_ROOT'].'/add_options.php';
+	?>
+
+	<script>
+		var textElement = document.querySelector(".result h2");
+		var textInput = document.querySelector(".result input");
+		let letterCount = '<?php echo $row['letter_count']?>'; // var wordLength = 6;
+
+		var a = ["e", "y", "u", "i", "o", "a"];
+		var b = ["q", "w", "r", "t", "p", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"];
+
+		function randomInteger(min, max) {
+		  var rand = min + Math.random() * (max + 1 - min);
+		  return Math.floor(rand);
+		}
+
+		function randomLetter(a_b) {
+			return a_b[randomInteger(0, a_b.length-1)];
+		}
+
+		//переделал на кнопку и количество букв выбраных пользователем
+		function randomName(length) {
+			length = letterCount;
+			var word = "";
+			for(var i=0; i<length; i++) {
+		  	if (randomInteger(0, 1) == 1) {
+		  		word += randomLetter(b);
+		  	} else {
+		  		word += randomLetter(a);
+		  	}	
+		  	console.log(word);
+		  }
+		  textElement.innerText = word;
+		  textInput.value = word;		  
+		}
+		randomName();
+
+		/*Добавляем назваие в список*/
+		// let addToListLike = document.querySelector('.like');
+		// let addToListBad = document.querySelector('.bad');
+
+		// addToListLike.addEventListener('click', addToList);
+		// addToListBad.addEventListener('click', addToList);
+
+		// function addToList() {
+		// 	window.location.href = '/add_title.php';
+		// }
+	</script>
 
 <?php 
 	}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Час створення: Вер 19 2022 р., 23:53
+-- Час створення: Вер 20 2022 р., 21:39
 -- Версія сервера: 10.4.24-MariaDB
 -- Версія PHP: 8.1.6
 
@@ -34,38 +34,27 @@ CREATE TABLE `list` (
   `liked` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Дамп даних таблиці `list`
+-- Структура таблиці `options`
 --
 
-INSERT INTO `list` (`id`, `user_id`, `title`, `liked`) VALUES
-(55, '1', 'GRHJERH', 1),
-(56, '1', 'GRHJERH', 1),
-(57, '1', 'GRHJERH', 1),
-(58, '1', 'GRHJERH', 1),
-(59, '1', 'GRHJERH', 1),
-(60, '1', 'GRHJERH', 1),
-(61, '1', 'GRHJERH', 1),
-(62, '1', 'GRHJERH', 1),
-(63, '1', 'GRHJERH', 1),
-(64, '1', 'GRHJERH', 1),
-(65, '1', 'GRHJERH', 1),
-(66, '1', 'GRHJERH', 1),
-(67, '2', 'gfjfjhkjghg', 1),
-(68, '2', 'gfjfjhkjghg', 1),
-(69, '2', 'gfjfjhkjghg', 1),
-(70, '2', 'gfjfjhkjghg', 1),
-(71, '2', 'gfjfjhkjghg', 1),
-(72, '2', 'gfjfjhkjghg', 1),
-(73, '2', 'gfjfjhkjghg', 1),
-(74, '2', 'gfjfjhkjghg', 1),
-(75, '2', 'gfjfjhkjghg', 1),
-(76, '2', 'gfjfjhkjghg', 1),
-(77, '2', 'gfjfjhkjghg', 1),
-(78, '2', 'gfjfjhkjghg', 1),
-(79, '2', 'gfjfjhkjghg', 1),
-(80, '2', 'gfjfjhkjghg', 1),
-(81, '2', 'gfjfjhkjghg', 1);
+CREATE TABLE `options` (
+  `id` int(11) NOT NULL,
+  `user_id` int(255) NOT NULL,
+  `letter_count` int(255) NOT NULL DEFAULT 3,
+  `word_count` int(255) NOT NULL DEFAULT 1,
+  `language` varchar(255) NOT NULL DEFAULT 'EN',
+  `capital_letters` varchar(255) NOT NULL DEFAULT 'on'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Дамп даних таблиці `options`
+--
+
+INSERT INTO `options` (`id`, `user_id`, `letter_count`, `word_count`, `language`, `capital_letters`) VALUES
+(1, 0, 3, 1, 'EN', '0');
 
 -- --------------------------------------------------------
 
@@ -99,6 +88,12 @@ ALTER TABLE `list`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Індекси таблиці `options`
+--
+ALTER TABLE `options`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Індекси таблиці `users`
 --
 ALTER TABLE `users`
@@ -112,7 +107,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблиці `list`
 --
 ALTER TABLE `list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+
+--
+-- AUTO_INCREMENT для таблиці `options`
+--
+ALTER TABLE `options`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблиці `users`

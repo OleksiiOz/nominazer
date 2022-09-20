@@ -6,19 +6,10 @@
     <h2 class="login100-form-title p-b-50 p-t-20">YOUR LIST, <?php echo $user['username']; ?>!</h2>
     <div class="table-container">
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-  <!--              <thead>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Options</th>
-            </tr>
-        </thead> -->
         <tbody>
 
         <?php 
-            $sql = "SELECT * FROM list WHERE user_id = $currentUser";
+            $sql = "SELECT * FROM list WHERE user_id = $currentUser AND liked = 1";
             $result = $conn->query($sql);
 
             while($row = $result->fetch_assoc()) {
