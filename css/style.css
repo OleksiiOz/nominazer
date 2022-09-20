@@ -11,14 +11,18 @@ h2.login100-form-title a {
 }
 
 .options {
-	display: block;
+	/*display: block;*/
 }
 
 .generate-word {
-/*	display: none;*/
-	padding: 0;
+/*	display: none;
+*/	padding: 0;
 	font-size: 48px;
 }
+.display {
+	display: none;
+}
+
 .block {
 	display: flex;
 	justify-content: center;
